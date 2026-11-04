@@ -1,5 +1,9 @@
 # Developer Portfolio
 
+<p align="center">
+  <img src="public/logo.svg" alt="RUZZ — full-stack developer" width="420" />
+</p>
+
 A modern, responsive portfolio built with **React 19**, **Vite**, and **Tailwind CSS v4**. Warm editorial dark theme, expressive type, and purposeful motion — designed to put projects and experience first.
 
 ## Getting started
