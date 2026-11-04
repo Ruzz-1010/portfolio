@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { navLinks, profile } from '../data/portfolio'
 import { socialIcons } from './icons'
+import Logo from './Logo'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -61,14 +62,15 @@ export default function Navbar() {
         className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8"
         aria-label="Main navigation"
       >
-        <a href="#home" className="group flex items-center gap-2.5" aria-label={`${profile.name} — home`}>
-          <span className="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-accent via-accent-bright to-butter font-display text-sm font-bold text-[#1b0c05] shadow-[0_0_28px_-8px_rgba(255,107,53,0.9)] transition-transform duration-300 group-hover:-rotate-6">
-            {profile.name.charAt(0)}
-          </span>
-          <span className="font-display text-sm font-semibold tracking-tight text-cream">
-            {profile.name}
-            <span className="text-accent">.dev</span>
-          </span>
+        <a
+          href="#home"
+          className="group flex items-center"
+          aria-label={`${profile.name} — home`}
+        >
+          <Logo
+            markClassName="size-8 transition-transform duration-300 group-hover:-rotate-6"
+            wordmarkClassName="h-[17px] w-auto transition-opacity duration-300 group-hover:opacity-80"
+          />
         </a>
 
         <ul className="hidden items-center gap-1 md:flex">

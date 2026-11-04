@@ -1,5 +1,6 @@
 import { ArrowUp } from 'lucide-react'
 import { profile } from '../data/portfolio'
+import { LogoMark, RuzzWordmark } from './Logo'
 
 const year = new Date().getFullYear()
 
@@ -9,15 +10,10 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
-            <span className="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-accent via-accent-bright to-butter font-display text-sm font-bold text-[#1b0c05]">
-              {profile.name.charAt(0)}
-            </span>
+            <LogoMark className="size-8 shrink-0" />
             <div>
-              <p className="font-display text-sm font-semibold text-cream">
-                {profile.name}
-                <span className="text-accent">.dev</span>
-              </p>
-              <p className="text-[11px] text-muted/60">Full-stack developer</p>
+              <RuzzWordmark className="h-[15px] w-auto" />
+              <p className="mt-1 text-[11px] text-muted/60">Full-stack developer</p>
             </div>
           </div>
 
@@ -39,9 +35,7 @@ export default function Footer() {
         </div>
 
         <div className="relative mt-10 select-none overflow-hidden" aria-hidden="true">
-          <p className="text-outline whitespace-nowrap text-center font-display text-[23vw] font-bold leading-[0.7] tracking-[-0.055em]">
-            {profile.name.toUpperCase()}
-          </p>
+          <RuzzWordmark variant="outline" className="w-full" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-surface to-transparent" />
         </div>
 

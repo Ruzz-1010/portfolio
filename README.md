@@ -49,6 +49,19 @@ Swap `visual` on any project to change its artwork — no screenshots required.
 
 Replace **`public/resume.pdf`** with your real résumé (same filename), or change `profile.resumeUrl`. The current file is a placeholder generated from sample content.
 
+### Logo & brand assets
+
+The custom **RUZZ** wordmark and **R** monogram live in **`src/components/Logo.jsx`**. They are vector paths, so they stay crisp at any size and match the oversized outlined wordmark in the footer.
+
+Standalone assets in **`public/`**:
+
+- `logo.svg` — full lockup on a dark card
+- `logo-mark.svg` — R monogram tile
+- `logo-wordmark.svg` — wordmark only, for dark backgrounds
+- `favicon.svg` — browser icon
+
+Swap the path constants in `Logo.jsx` and the SVGs in `public/` if you rebrand.
+
 ### Site metadata
 
 Update the title, description, and Open Graph tags in **`index.html`**. The favicon is **`public/favicon.svg`**.
@@ -95,6 +108,7 @@ src/
     Footer.jsx
     Hero.jsx           # headline, CTAs, tilting code card, stats
     LocalTime.jsx      # live local clock
+    Logo.jsx           # custom RUZZ wordmark + R monogram
     Navbar.jsx         # sticky nav, active-section tracking, mobile menu
     ProjectVisual.jsx  # CSS-built project mockups
     Projects.jsx       # featured wide card + project grid

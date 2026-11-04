@@ -1,18 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#6ee7b7" />
-      <stop offset="1" stop-color="#0d9488" />
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="14" fill="#09090b" />
-  <text
-    x="32"
-    y="45"
-    font-family="Inter, system-ui, sans-serif"
-    font-size="36"
-    font-weight="800"
-    fill="url(#g)"
-    text-anchor="middle"
-  >R</text>
+  <rect width="64" height="64" rx="16" fill="#f5efe6" />
+  <g transform="translate(9.9 52) scale(0.0606 -0.0606)">
+    <path
+      fill="#0a0908"
+      d="M69 0V660H350Q405 660 450.0 651.5Q495 643 529.5 626.5Q564 610 588.0 586.5Q612 563 624.0 532.5Q636 502 636 465Q636 430 625.0 402.0Q614 374 591.5 353.0Q569 332 535.0 319.0Q501 306 456 300V285Q513 279 544.5 259.5Q576 240 593.0 208.0Q610 176 623 131L661 0H482L453 121Q444 161 428.5 183.0Q413 205 389.0 213.5Q365 222 329 222H230V0ZM230 341H339Q400 341 434.0 365.0Q468 389 468 440Q468 490 437.0 514.0Q406 538 343 538H230Z"
+    />
+  </g>
+  <path
+    fill="#ff6b35"
+    d="M52 9c.7 4.8 2.5 6.6 7.3 7.3-4.8.7-6.6 2.5-7.3 7.3-.7-4.8-2.5-6.6-7.3-7.3 4.8-.7 6.6-2.5 7.3-7.3z"
+  />
 </svg>
