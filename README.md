@@ -4,7 +4,16 @@
   <img src="public/logo.svg" alt="RUZZ — full-stack developer" width="420" />
 </p>
 
-A modern, responsive portfolio built with **React 19**, **Vite**, and **Tailwind CSS v4**. Warm editorial dark theme, expressive type, and purposeful motion — designed to put projects and experience first.
+A student developer portfolio for **Ruzz** — built with **React 19**, **Vite**, and **Tailwind CSS v4**. Warm editorial dark theme, expressive type, and a floating Waybar-inspired header. The projects are real: two thesis builds, a reservation platform, and a food ordering app.
+
+## Featured projects
+
+| Project | Stack | Link |
+| --- | --- | --- |
+| **FALCON-01** — IoT coastal monitoring buoy | Python, React, TypeScript, ESP32, SQLite | [Project-FALCON-01](https://github.com/Ruzz-1010/Project-FALCON-01) |
+| **PuertoScanCare** — prescription-to-pharmacy decision support | Flutter, Dart, Material 3 | Private thesis repository |
+| **Pickleball Reservation** — court bookings & PayMongo checkout | Laravel, PHP, PostgreSQL, Alpine.js | [Private-Sports-Court-Reservation-System](https://github.com/Ruzz-1010/Private-Sports-Court-Reservation-System) |
+| **Food Ordering Platform** — multi-role ordering & live tracking | React, Express, MongoDB, Leaflet | [Live demo](https://food-ordering-app-one-mu.vercel.app) · [Source](https://github.com/Ruzz-1010/food-ordering-app) |
 
 ## Getting started
 
@@ -42,16 +51,16 @@ Almost all content lives in a single file: **`src/data/portfolio.js`**.
 
 Each project picks a hand-built mockup via the `visual` field:
 
-- `dashboard` — analytics UI
-- `terminal` — API / logs UI
-- `snippets` — search-driven code UI
-- `design` — design system UI
+- `falcon` — ocean telemetry dashboard
+- `care` — prescription scan + pharmacy comparison
+- `court` — court booking grid
+- `food` — live order tracking + map
 
 Swap `visual` on any project to change its artwork — no screenshots required.
 
 ### Résumé
 
-Replace **`public/resume.pdf`** with your real résumé (same filename), or change `profile.resumeUrl`. The current file is a placeholder generated from sample content.
+Replace **`public/resume.pdf`** with an updated PDF (same filename), or change `profile.resumeUrl`. The current file is a one-page résumé generated from the real student projects on this site.
 
 ### Logo & brand assets
 
@@ -113,14 +122,15 @@ src/
     Hero.jsx           # headline, CTAs, tilting code card, stats
     LocalTime.jsx      # live local clock
     Logo.jsx           # custom RUZZ wordmark + R monogram
-    Navbar.jsx         # sticky nav, active-section tracking, mobile menu
-    ProjectVisual.jsx  # CSS-built project mockups
-    Projects.jsx       # featured wide card + project grid
+    Navbar.jsx         # floating Hyprland/Waybar-style bar + mobile launcher
+    ProjectVisual.jsx  # CSS-built project mockups (falcon, care, court, food)
+    Projects.jsx       # featured wide card, project grid, private repo handling
     Reveal.jsx         # IntersectionObserver scroll reveals
     RotatingStamp.jsx  # circular rotating text badge
     ScrollProgress.jsx
     SectionHeading.jsx
     Skills.jsx
+    SocialLinks.jsx    # shared social icon links with brand hovers
     TechIcon.jsx       # brand-colored technology icons
     TechMarquee.jsx
     icons.jsx          # social SVG icons

@@ -1,3 +1,5 @@
+import { Mail } from 'lucide-react'
+
 export function GithubIcon({ size = 18, ...props }) {
   return (
     <svg
@@ -43,8 +45,13 @@ export function XIcon({ size = 18, ...props }) {
   )
 }
 
+export function MailIcon({ size = 18, ...props }) {
+  return <Mail size={size} aria-hidden="true" {...props} />
+}
+
 export const socialIcons = {
   github: GithubIcon,
   linkedin: LinkedinIcon,
   x: XIcon,
+  mail: MailIcon,
 }

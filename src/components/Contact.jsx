@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { ArrowUpRight, Check, Copy, Mail, MapPin } from 'lucide-react'
 import { profile } from '../data/portfolio'
-import { socialIcons } from './icons'
 import LocalTime from './LocalTime'
 import Reveal from './Reveal'
 import RotatingStamp from './RotatingStamp'
+import SocialLinks from './SocialLinks'
 
 export default function Contact() {
   const [copied, setCopied] = useState(false)
@@ -108,23 +108,8 @@ export default function Contact() {
                   {profile.email}
                 </a>
 
-                <div className="mt-7 flex items-center gap-1">
-                  {profile.socials.map((social) => {
-                    const Icon = socialIcons[social.icon]
-                    if (!Icon) return null
-                    return (
-                      <a
-                        key={social.label}
-                        href={social.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={social.label}
-                        className="grid size-10 place-items-center rounded-full text-muted transition-colors hover:bg-cream/[0.04] hover:text-accent"
-                      >
-                        <Icon size={17} />
-                      </a>
-                    )
-                  })}
+                <div className="mt-7">
+                  <SocialLinks size={17} itemClassName="bg-cream/[0.02]" />
                 </div>
 
                 <div className="mt-9 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t border-cream/[0.08] pt-6 font-mono text-[10px] uppercase tracking-[0.16em] text-muted/60">

@@ -1,8 +1,14 @@
-import { ArrowUpRight, Check, Download } from 'lucide-react'
+import { ArrowUpRight, Check, Cpu, Download, Layers, Smartphone } from 'lucide-react'
 import { experience, profile } from '../data/portfolio'
 import Reveal from './Reveal'
 import SectionHeading from './SectionHeading'
 import TechIcon from './TechIcon'
+
+const experienceIcons = {
+  cpu: Cpu,
+  smartphone: Smartphone,
+  layers: Layers,
+}
 
 export default function Experience() {
   return (
@@ -18,10 +24,10 @@ export default function Experience() {
               eyebrow="Experience"
               title={
                 <>
-                  Where I&apos;ve <span className="serif-accent text-accent">been.</span>
+                  What I&apos;ve <span className="serif-accent text-accent">built.</span>
                 </>
               }
-              description="Four years of shipping products with small teams and big ambitions."
+              description="Thesis work, capstones, and shipped projects — designed and coded solo."
             />
           </Reveal>
 
@@ -41,7 +47,10 @@ export default function Experience() {
         </div>
 
         <ol className="relative mt-14 space-y-0 before:absolute before:bottom-2 before:left-[3px] before:top-2 before:w-px before:bg-gradient-to-b before:from-accent/60 before:via-mint/25 before:to-lilac/10">
-          {experience.map((job, index) => (
+          {experience.map((job, index) => {
+            const JobIcon = experienceIcons[job.icon]
+
+            return (
             <li
               key={`${job.company}-${job.role}`}
               className="relative pb-12 pl-7 last:pb-0 sm:pl-9"
@@ -76,7 +85,7 @@ export default function Experience() {
                         }}
                         aria-hidden="true"
                       >
-                        {job.company.charAt(0)}
+                        {JobIcon ? <JobIcon size={14} /> : job.company.charAt(0)}
                       </span>
                       {job.location}
                     </p>
@@ -123,7 +132,8 @@ export default function Experience() {
                 </div>
               </Reveal>
             </li>
-          ))}
+            )
+          })}
         </ol>
 
         <Reveal delay={120}>

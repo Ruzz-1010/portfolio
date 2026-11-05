@@ -43,7 +43,7 @@ export default function About() {
                 <span className="serif-accent text-accent">clean code.</span>
               </>
             }
-            description="A little context on how I work and what I care about."
+            description="A student developer from Palawan, building real systems one thesis at a time."
           />
         </Reveal>
 
@@ -52,20 +52,20 @@ export default function About() {
             <Reveal>
               <div className="space-y-5 text-[15px] leading-relaxed text-muted sm:text-base sm:leading-[1.8]">
                 <p>
-                  I&apos;m {profile.name}, a {profile.role.toLowerCase()} who lives in the space where{' '}
-                  <span className="text-cream">design meets engineering</span>. For the past 4+
-                  years I&apos;ve helped teams turn rough ideas into products people actually enjoy
-                  using — from the first prototype to systems serving thousands of users.
+                  I&apos;m {profile.name}, a {profile.role.toLowerCase()} and student from Puerto
+                  Princesa City, Palawan. I like turning messy, real-world problems into{' '}
+                  <span className="text-cream">working software</span> — from an IoT buoy reading
+                  the ocean to a pharmacy app that compares medicine prices.
                 </p>
                 <p>
-                  I care about the fundamentals:{' '}
-                  <span className="text-cream">fast load times</span>, accessible markup, clean APIs,
-                  and code the next person can read. The best interfaces feel obvious, and getting
-                  there takes deliberate work on both sides of the stack.
+                  Most of what I know comes from building end to end: React dashboards, Laravel
+                  APIs, Flutter apps, Python telemetry, and the SQL underneath. I care about{' '}
+                  <span className="text-cream">clean data models</span>, fast load times, and
+                  interfaces that stay out of the way.
                 </p>
                 <p>
-                  When I&apos;m not shipping, I&apos;m usually contributing to open source, writing
-                  about developer tooling, or over-engineering my dotfiles.
+                  When I&apos;m not working on a thesis feature, I&apos;m probably configuring
+                  Hyprland, wiring an ESP32, or rewriting my dotfiles for the fifth time.
                 </p>
               </div>
             </Reveal>
@@ -129,7 +129,7 @@ export default function About() {
                     </div>
                     <RotatingStamp
                       className="size-20 shrink-0"
-                      text="REMOTE • WORLDWIDE • DESIGN • BUILD • "
+                      text="PALAWAN • PH • BUILD • SHIP • "
                     />
                   </div>
                 </div>

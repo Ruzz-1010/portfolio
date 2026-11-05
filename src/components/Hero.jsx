@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { ArrowDown, ArrowUpRight, MapPin, Sparkles } from 'lucide-react'
 import { profile, stats } from '../data/portfolio'
-import { socialIcons } from './icons'
 import CountUp from './CountUp'
 import LocalTime from './LocalTime'
 import RotatingStamp from './RotatingStamp'
+import SocialLinks from './SocialLinks'
 
 function CodeCard({ tilt, onMouseMove, onMouseLeave }) {
   return (
@@ -60,16 +60,16 @@ function CodeCard({ tilt, onMouseMove, onMouseLeave }) {
               <span className="text-muted/70">:</span> <span className="text-muted">[</span>
               <span className="text-mint">&apos;React&apos;</span>
               <span className="text-muted/70">,</span>{' '}
-              <span className="text-mint">&apos;TypeScript&apos;</span>
+              <span className="text-mint">&apos;Laravel&apos;</span>
               <span className="text-muted/70">,</span>{' '}
-              <span className="text-mint">&apos;Node&apos;</span>
+              <span className="text-mint">&apos;Flutter&apos;</span>
               <span className="text-muted">]</span>
               <span className="text-muted/70">,</span>
               {'\n'}
               {'  '}
               <span className="text-cream/60">focus</span>
               <span className="text-muted/70">:</span>{' '}
-              <span className="text-mint">&apos;Fast, accessible products&apos;</span>
+              <span className="text-mint">&apos;Real problems, clean systems&apos;</span>
               <span className="text-muted/70">,</span>
               {'\n'}
               {'  '}
@@ -97,7 +97,7 @@ function CodeCard({ tilt, onMouseMove, onMouseLeave }) {
         </div>
       </div>
 
-      <div className="absolute -top-20 right-2 z-20 animate-float sm:-right-6 sm:-top-24">
+      <div className="absolute -top-20 right-2 z-20 hidden animate-float sm:-right-6 sm:-top-24 lg:block">
         <RotatingStamp className="size-24 sm:size-28" />
       </div>
 
@@ -234,23 +234,8 @@ export default function Hero() {
                 />
               </a>
 
-              <div className="ml-1 flex items-center gap-1" aria-label="Social links">
-                {profile.socials.map((social) => {
-                  const Icon = socialIcons[social.icon]
-                  if (!Icon) return null
-                  return (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={social.label}
-                      className="grid size-10 place-items-center rounded-full text-muted transition-colors hover:bg-cream/[0.05] hover:text-accent"
-                    >
-                      <Icon size={17} />
-                    </a>
-                  )
-                })}
+              <div className="ml-1 flex items-center" aria-label="Social links">
+                <SocialLinks size={17} />
               </div>
             </div>
           </div>

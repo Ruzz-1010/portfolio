@@ -1,9 +1,10 @@
-import { ArrowUpRight, ExternalLink } from 'lucide-react'
+import { ArrowUpRight, ExternalLink, Lock } from 'lucide-react'
 import { projects } from '../data/portfolio'
 import { GithubIcon } from './icons'
 import ProjectVisual from './ProjectVisual'
 import Reveal from './Reveal'
 import SectionHeading from './SectionHeading'
+import TechIcon from './TechIcon'
 
 export default function Projects() {
   return (
@@ -19,13 +20,13 @@ export default function Projects() {
                   Selected <span className="serif-accent text-accent">work.</span>
                 </>
               }
-              description="A few things I've designed, built, and shipped. Each one taught me something new."
+              description="Thesis systems, booking platforms, and full-stack builds — designed, coded, and shipped from Palawan."
             />
           </Reveal>
 
           <Reveal delay={100}>
             <a
-              href="https://github.com/ruzz"
+              href="https://github.com/Ruzz-1010"
               target="_blank"
               rel="noreferrer"
               className="group inline-flex shrink-0 items-center gap-2 text-[13px] font-medium text-muted transition-colors hover:text-accent"
@@ -43,6 +44,7 @@ export default function Projects() {
         <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => {
             const wide = Boolean(project.wide)
+            const projectLink = project.live || project.source
 
             return (
               <Reveal
@@ -61,30 +63,31 @@ export default function Projects() {
                       wide ? 'lg:min-h-[440px] lg:border-b-0 lg:border-r' : 'aspect-[16/10]'
                     }`}
                   >
-                    <a
-                      href={project.live || project.source}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`${project.title} — view project`}
-                      className="block h-full"
-                    >
-                      <div className="project-visual h-full transition-transform duration-500 ease-out">
-                        <ProjectVisual variant={project.visual} />
-                      </div>
+                    {projectLink ? (
+                      <a
+                        href={projectLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`${project.title} — view project`}
+                        className="block h-full"
+                      >
+                        <div className="project-visual h-full transition-transform duration-500 ease-out">
+                          <ProjectVisual variant={project.visual} />
+                        </div>
 
-                      <div className="pointer-events-none absolute inset-0 z-10 flex items-end bg-gradient-to-t from-black/70 via-black/0 to-transparent p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        <span className="inline-flex items-center gap-2 rounded-full bg-cream px-4 py-2 text-[12px] font-semibold text-surface shadow-lg">
-                          View project
-                          <ArrowUpRight size={14} />
-                        </span>
+                        <div className="pointer-events-none absolute inset-0 z-10 flex items-end bg-gradient-to-t from-black/70 via-black/0 to-transparent p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                          <span className="inline-flex items-center gap-2 rounded-full bg-cream px-4 py-2 text-[12px] font-semibold text-surface shadow-lg">
+                            {project.live ? 'Open live demo' : 'View project'}
+                            <ArrowUpRight size={14} />
+                          </span>
+                        </div>
+                      </a>
+                    ) : (
+                      <div className="h-full">
+                        <div className="project-visual h-full transition-transform duration-500 ease-out">
+                          <ProjectVisual variant={project.visual} />
+                        </div>
                       </div>
-                    </a>
-
-                    {project.featured && (
-                      <span className="pv-text pv-border absolute left-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full border bg-[#0b0806]/80 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.14em] backdrop-blur">
-                        <span className="pv-bg size-1 rounded-full" aria-hidden="true" />
-                        Featured
-                      </span>
                     )}
                   </div>
 
@@ -93,6 +96,22 @@ export default function Projects() {
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div>
+                        {(project.featured || project.private) && (
+                          <div className="mb-2.5 flex flex-wrap items-center gap-1.5">
+                            {project.featured && (
+                              <span className="pv-text pv-border inline-flex items-center gap-1.5 rounded-full border bg-cream/[0.02] px-2 py-0.5 font-mono text-[8.5px] uppercase tracking-[0.14em]">
+                                <span className="pv-bg size-1 rounded-full" aria-hidden="true" />
+                                Featured
+                              </span>
+                            )}
+                            {project.private && (
+                              <span className="inline-flex items-center gap-1.5 rounded-full border border-cream/12 bg-cream/[0.03] px-2 py-0.5 font-mono text-[8.5px] uppercase tracking-[0.14em] text-cream/60">
+                                <Lock size={8} aria-hidden="true" />
+                                Private
+                              </span>
+                            )}
+                          </div>
+                        )}
                         <h3
                           className={`project-title font-display font-semibold tracking-tight text-cream transition-colors ${
                             wide ? 'text-2xl sm:text-3xl' : 'text-xl'
@@ -107,15 +126,25 @@ export default function Projects() {
                         </p>
                       </div>
 
-                      <a
-                        href={project.source}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={`${project.title} source code`}
-                        className="grid size-9 shrink-0 place-items-center rounded-full border border-cream/[0.09] text-muted transition-colors hover:border-cream/25 hover:text-cream"
-                      >
-                        <GithubIcon size={15} />
-                      </a>
+                      {project.source ? (
+                        <a
+                          href={project.source}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={`${project.title} source code`}
+                          className="grid size-9 shrink-0 place-items-center rounded-full border border-cream/[0.09] text-muted transition-colors hover:border-cream/25 hover:text-cream"
+                        >
+                          <GithubIcon size={15} />
+                        </a>
+                      ) : (
+                        <span
+                          title="Private repository"
+                          className="grid size-9 shrink-0 place-items-center rounded-full border border-cream/[0.07] text-muted/45"
+                        >
+                          <Lock size={14} aria-hidden="true" />
+                          <span className="sr-only">Private repository</span>
+                        </span>
+                      )}
                     </div>
 
                     <p
@@ -132,14 +161,32 @@ export default function Projects() {
                           key={tag}
                           className="flex items-center gap-1.5 rounded-md border border-cream/[0.07] bg-cream/[0.02] px-2 py-1 font-mono text-[9.5px] uppercase tracking-[0.06em] text-muted"
                         >
-                          <span
-                            className="pv-tag-dot size-1 rounded-full opacity-70"
-                            aria-hidden="true"
-                          />
+                          <TechIcon name={tag} size={11} />
                           {tag}
                         </li>
                       ))}
                     </ul>
+
+                    {wide && (
+                      <dl className="mt-6 grid max-w-lg grid-cols-2 gap-x-6 gap-y-3 border-t border-cream/[0.07] pt-5">
+                        <div>
+                          <dt className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted/45">
+                            Edge
+                          </dt>
+                          <dd className="mt-1 text-[12.5px] text-cream/75">
+                            ESP32 · pressure, wind, GPS
+                          </dd>
+                        </div>
+                        <div>
+                          <dt className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted/45">
+                            Pipeline
+                          </dt>
+                          <dd className="mt-1 text-[12.5px] text-cream/75">
+                            SQLite history → React dashboard
+                          </dd>
+                        </div>
+                      </dl>
+                    )}
 
                     <div className="mt-auto pt-6">
                       <div className="flex items-center gap-5 border-t border-cream/[0.07] pt-4">
@@ -165,6 +212,12 @@ export default function Projects() {
                             Source
                             <span className="sr-only">for {project.title}</span>
                           </a>
+                        )}
+                        {project.private && !project.source && (
+                          <span className="inline-flex items-center gap-1.5 text-[12px] font-medium text-muted/60">
+                            <Lock size={12} aria-hidden="true" />
+                            Private thesis repo
+                          </span>
                         )}
                         <span className="ml-auto font-mono text-[9px] uppercase tracking-[0.14em] text-muted/40">
                           0{index + 1}
