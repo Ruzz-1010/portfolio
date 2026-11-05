@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { navLinks, profile } from '../data/portfolio'
 import { socialIcons } from './icons'
-import Logo from './Logo'
+import { RuzzWordmark } from './Logo'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -67,10 +67,7 @@ export default function Navbar() {
           className="group flex items-center"
           aria-label={`${profile.name} — home`}
         >
-          <Logo
-            markClassName="size-8 transition-transform duration-300 group-hover:-rotate-6"
-            wordmarkClassName="h-[17px] w-auto transition-opacity duration-300 group-hover:opacity-80"
-          />
+          <RuzzWordmark className="h-5 w-auto transition-opacity duration-300 group-hover:opacity-75" />
         </a>
 
         <ul className="hidden items-center gap-1 md:flex">
