@@ -89,6 +89,7 @@ function Mascot({ compact, mascotRef }) {
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [expanded, setExpanded] = useState(true)
+  const [atTop, setAtTop] = useState(true)
   const [active, setActive] = useState('')
   const headerRef = useRef(null)
   const mascotRef = useRef(null)
@@ -100,10 +101,15 @@ export default function Navbar() {
     setExpanded(false)
   }
 
-  // Shrink back into the companion as soon as the page scrolls.
+  // Stay open on the first screen; shrink once the page starts scrolling.
   useEffect(() => {
     const onScroll = () => {
-      if (window.scrollY > 24) {
+      const firstScreen = window.scrollY <= 80
+      setAtTop(firstScreen)
+
+      if (firstScreen) {
+        setExpanded(true)
+      } else {
         setOpen(false)
         setExpanded(false)
       }
@@ -167,7 +173,7 @@ export default function Navbar() {
 
   // If nobody interacts with the open header for a while, it goes back to sleep.
   useEffect(() => {
-    if (!expanded || open) return
+    if (!expanded || open || atTop) return
 
     const goToSleep = () => {
       const focused = document.activeElement
@@ -192,7 +198,7 @@ export default function Navbar() {
       node?.removeEventListener('pointerdown', reset)
       node?.removeEventListener('focusin', reset)
     }
-  }, [expanded, open])
+  }, [expanded, open, atTop])
 
   // Pupils follow the cursor, then wander on their own when the page is idle.
   useEffect(() => {
