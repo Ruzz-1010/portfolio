@@ -96,8 +96,10 @@ export const projects = [
       'A thesis-stage IoT buoy that tracks wave pressure, wind, GPS drift, and solar power, streaming live telemetry into a React dashboard with short-term wave-height prediction.',
     tags: ['Python', 'React', 'TypeScript', 'ESP32', 'SQLite'],
     year: '2026',
-    visual: 'falcon',
-    accent: '#ff6b35',
+    image: '/projects/falcon-01.webp',
+    imageAlt:
+      'FALCON-01 home page — solar-powered coastal observation buoy presentation',
+    accent: '#cbf65f',
     featured: true,
     wide: true,
     source: 'https://github.com/Ruzz-1010/Project-FALCON-01',
@@ -109,8 +111,10 @@ export const projects = [
       'An AI-assisted thesis app that turns verified prescriptions into quantity-aware pharmacy comparisons — factoring in stock, cost, distance, and inventory freshness. Built in Flutter with Material 3.',
     tags: ['Flutter', 'Dart', 'Riverpod', 'Material 3'],
     year: '2026',
-    visual: 'care',
-    accent: '#7ce7c4',
+    image: '/projects/puertoscancare.webp',
+    imageAlt:
+      'PuertoScanCare welcome screen — prescription-to-pharmacy decision support app',
+    accent: '#9fd8a8',
     featured: false,
     private: true,
   },
@@ -121,8 +125,10 @@ export const projects = [
       'A Laravel reservation platform for a private pickleball facility — court availability, PayMongo QRPh checkout, receipts, email confirmations, and admin reporting.',
     tags: ['Laravel', 'PHP', 'PostgreSQL', 'Tailwind CSS', 'Alpine.js'],
     year: '2026',
-    visual: 'court',
-    accent: '#b9a7ff',
+    image: '/projects/pickleball.webp',
+    imageAlt:
+      'San Jose Pickleball home page — court reservation hero with live availability',
+    accent: '#cbf65f',
     featured: false,
     source: 'https://github.com/Ruzz-1010/Private-Sports-Court-Reservation-System',
   },
@@ -133,10 +139,11 @@ export const projects = [
       'A full-stack food ordering platform with customer, restaurant, rider, and admin dashboards — role-based auth, live order tracking, restaurant analytics, and map-based delivery.',
     tags: ['React', 'Express', 'MongoDB', 'Tailwind CSS', 'Leaflet'],
     year: '2026',
-    visual: 'food',
-    accent: '#ffd166',
+    image: '/projects/food-ordering.webp',
+    imageAlt:
+      'FoodExpress home page — food delivery storefront with featured restaurants',
+    accent: '#e8e2cf',
     featured: false,
-    live: 'https://food-ordering-app-one-mu.vercel.app',
     source: 'https://github.com/Ruzz-1010/food-ordering-app',
   },
 ]
@@ -148,7 +155,7 @@ export const experience = [
     icon: 'cpu',
     period: '2026 — Present',
     location: 'Fullbright College',
-    accent: '#ff6b35',
+    accent: '#cbf65f',
     description:
       'Building the software stack for a coastal monitoring buoy that turns marine sensor data into live, decision-ready telemetry.',
     highlights: [
@@ -164,7 +171,7 @@ export const experience = [
     icon: 'smartphone',
     period: '2026 — Present',
     location: 'Fullbright College',
-    accent: '#7ce7c4',
+    accent: '#9fd8a8',
     description:
       'Designing an AI-assisted prescription-to-pharmacy decision-support app for patients in Puerto Princesa City.',
     highlights: [
@@ -180,7 +187,7 @@ export const experience = [
     icon: 'layers',
     period: '2025 — Present',
     location: 'Puerto Princesa City',
-    accent: '#b9a7ff',
+    accent: '#e8e2cf',
     description:
       'Shipped reservation, ordering, and booking systems end to end — from schema and API design to production UI.',
     highlights: [

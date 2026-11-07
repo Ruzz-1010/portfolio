@@ -6,18 +6,18 @@
   --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --color-surface: #0a0908;
-  --color-surface-2: #0f0d0b;
-  --color-raised: #171310;
-  --color-cream: #f5efe6;
-  --color-muted: #a69e93;
-  --color-line: rgba(245, 239, 230, 0.09);
-  --color-line-strong: rgba(245, 239, 230, 0.18);
-  --color-accent: #ff6b35;
-  --color-accent-bright: #ff9b76;
-  --color-butter: #ffd166;
-  --color-lilac: #b9a7ff;
-  --color-mint: #7ce7c4;
+  --color-surface: #0b0c0a;
+  --color-surface-2: #111310;
+  --color-raised: #191c16;
+  --color-cream: #f2efe4;
+  --color-muted: #a4a499;
+  --color-line: rgba(242, 239, 228, 0.08);
+  --color-line-strong: rgba(242, 239, 228, 0.17);
+  --color-accent: #cbf65f;
+  --color-accent-bright: #e3ff9c;
+  --color-butter: #e8e2cf;
+  --color-lilac: #a8b3a0;
+  --color-mint: #a6d9a8;
 }
 
 @layer base {
@@ -29,7 +29,7 @@
   body {
     margin: 0;
     background-color: var(--color-surface);
-    color: #d6cec3;
+    color: #cfcfc2;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -37,8 +37,8 @@
   }
 
   ::selection {
-    background-color: rgb(255 107 53 / 0.3);
-    color: #fff6ee;
+    background-color: rgb(203 246 95 / 0.28);
+    color: #11140a;
   }
 
   :focus-visible {
@@ -56,13 +56,13 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #2b2520;
+    background: #24271f;
     border: 2px solid var(--color-surface);
     border-radius: 999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #403730;
+    background: #353a2d;
   }
 }
 
@@ -100,15 +100,15 @@
 /* ---------- Backgrounds ---------- */
 .bg-grid {
   background-image:
-    linear-gradient(to right, rgb(245 239 230 / 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(245 239 230 / 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgb(242 239 228 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(242 239 228 / 0.04) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse 85% 65% at 50% 0%, #000 35%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse 85% 65% at 50% 0%, #000 35%, transparent 100%);
 }
 
 .bg-dots {
-  background-image: radial-gradient(circle, rgb(245 239 230 / 0.16) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgb(242 239 228 / 0.16) 1px, transparent 1px);
   background-size: 24px 24px;
   mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 20%, transparent 80%);
   -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 20%, transparent 80%);
@@ -174,7 +174,7 @@
   border-radius: inherit;
   background: radial-gradient(
     460px circle at var(--mx, 50%) var(--my, 0%),
-    rgb(255 107 53 / 0.1),
+    rgb(203 246 95 / 0.09),
     transparent 65%
   );
   opacity: 0;
@@ -197,7 +197,7 @@
 }
 
 .text-gradient {
-  background-image: linear-gradient(100deg, #ffd166 0%, #ff6b35 35%, #ff8f6b 55%, #b9a7ff 100%);
+  background-image: linear-gradient(100deg, #f2efe4 0%, #cbf65f 40%, #e3ff9c 58%, #a8b3a0 100%);
   background-size: 200% auto;
   background-clip: text;
   -webkit-background-clip: text;
@@ -207,7 +207,7 @@
 
 .text-outline {
   color: transparent;
-  -webkit-text-stroke: 1px rgb(245 239 230 / 0.13);
+  -webkit-text-stroke: 1px rgb(242 239 228 / 0.12);
 }
 
 .serif-accent {
@@ -329,6 +329,59 @@
   background-color: var(--project-accent);
 }
 
+/* ---------- Header companion ---------- */
+@keyframes mascot-blink {
+  0%,
+  44%,
+  50%,
+  100% {
+    transform: scaleY(1);
+  }
+  47% {
+    transform: scaleY(0.12);
+  }
+}
+
+.mascot-eye {
+  animation: mascot-blink 5.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.mascot-pupil {
+  transform: translate(var(--gaze-x, 0px), var(--gaze-y, 0px));
+  transition: transform 0.16s ease-out;
+}
+
+@keyframes mascot-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-2px) rotate(1deg);
+  }
+}
+
+.mascot-bob {
+  animation: mascot-bob 4.6s ease-in-out infinite;
+}
+
+@keyframes mascot-halo {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  65% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+
+.mascot-halo {
+  animation: mascot-halo 3.6s ease-out infinite;
+}
+
 /* ---------- Blinking cursor ---------- */
 @keyframes blink {
   0%,
@@ -378,7 +431,7 @@
   margin: -310px 0 0 -310px;
   border-radius: 999px;
   pointer-events: none;
-  background: radial-gradient(circle, rgb(255 107 53 / 0.075), transparent 62%);
+  background: radial-gradient(circle, rgb(203 246 95 / 0.06), transparent 62%);
   transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -409,6 +462,9 @@
 
   .marquee-track,
   .cursor-blink,
+  .mascot-bob,
+  .mascot-eye,
+  .mascot-halo,
   .pulse-ring::after,
   .animate-drift,
   .animate-drift-slow,

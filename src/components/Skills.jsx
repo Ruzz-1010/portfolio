@@ -56,7 +56,7 @@ export default function Skills() {
             return (
               <Reveal key={group.title} delay={index * 80} className="h-full">
                 <article
-                  className="spotlight group relative flex h-full flex-col overflow-hidden rounded-2xl border border-cream/[0.08] bg-surface-2/70 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-cream/[0.16] hover:shadow-[0_24px_70px_-40px_rgba(255,107,53,0.5)]"
+                  className="spotlight group relative flex h-full flex-col overflow-hidden rounded-2xl border border-cream/[0.08] bg-surface-2/70 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-cream/[0.16] hover:shadow-[0_24px_70px_-40px_rgba(203,246,95,0.5)]"
                   onMouseMove={trackSpotlight}
                 >
                   <div

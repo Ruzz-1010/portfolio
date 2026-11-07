@@ -54,13 +54,15 @@ export default function Projects() {
               >
                 <article
                   className={`project-card group relative flex h-full flex-col overflow-hidden rounded-2xl border border-cream/[0.08] bg-surface-2/60 ${
-                    wide ? 'lg:grid lg:grid-cols-[1.08fr_0.92fr]' : ''
+                    wide ? 'lg:grid lg:grid-cols-[1.34fr_0.66fr]' : ''
                   }`}
                   style={{ '--project-accent': project.accent }}
                 >
                   <div
                     className={`relative overflow-hidden border-b border-cream/[0.06] ${
-                      wide ? 'lg:min-h-[440px] lg:border-b-0 lg:border-r' : 'aspect-[16/10]'
+                      wide
+                        ? 'aspect-[16/10] lg:aspect-auto lg:min-h-[440px] lg:border-b-0 lg:border-r'
+                        : 'aspect-[16/10]'
                     }`}
                   >
                     {projectLink ? (
@@ -72,7 +74,11 @@ export default function Projects() {
                         className="block h-full"
                       >
                         <div className="project-visual h-full transition-transform duration-500 ease-out">
-                          <ProjectVisual variant={project.visual} />
+                          <ProjectVisual
+                            image={project.image}
+                            alt={project.imageAlt}
+                            eager={project.featured}
+                          />
                         </div>
 
                         <div className="pointer-events-none absolute inset-0 z-10 flex items-end bg-gradient-to-t from-black/70 via-black/0 to-transparent p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -85,7 +91,10 @@ export default function Projects() {
                     ) : (
                       <div className="h-full">
                         <div className="project-visual h-full transition-transform duration-500 ease-out">
-                          <ProjectVisual variant={project.visual} />
+                          <ProjectVisual
+                            image={project.image}
+                            alt={project.imageAlt}
+                          />
                         </div>
                       </div>
                     )}

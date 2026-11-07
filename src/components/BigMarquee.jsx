@@ -18,8 +18,8 @@ export default function BigMarquee() {
         {items.map((phrase, index) => (
           <span
             key={`${phrase}-${index}`}
-            className={`whitespace-nowrap px-5 font-display text-2xl font-semibold uppercase tracking-tight text-[#1c0c05] sm:px-7 sm:text-3xl ${
-              phrase === '✦' ? 'text-[#1c0c05]/50' : ''
+            className={`whitespace-nowrap px-5 font-display text-2xl font-semibold uppercase tracking-tight text-[#14180a] sm:px-7 sm:text-3xl ${
+              phrase === '✦' ? 'text-[#14180a]/50' : ''
             }`}
           >
             {phrase}

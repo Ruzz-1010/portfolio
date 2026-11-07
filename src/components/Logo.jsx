@@ -24,11 +24,11 @@ function WordmarkPaths({ fill }) {
 export function LogoMark({ className = 'size-8' }) {
   return (
     <svg viewBox="0 0 64 64" className={className} aria-hidden="true" focusable="false">
-      <rect width="64" height="64" rx="17" fill="var(--color-cream)" />
+      <rect width="64" height="64" rx="17" fill="var(--color-accent)" />
       <g transform="translate(9.9 52) scale(0.0606 -0.0606)">
         <path fill="var(--color-surface)" d={R_PATH} />
       </g>
-      <path fill="var(--color-accent)" d={SPARK_PATH} />
+      <path fill="var(--color-surface)" d={SPARK_PATH} />
     </svg>
   )
 }
@@ -46,9 +46,9 @@ export function RuzzWordmark({ className = 'h-5 w-auto', variant = 'solid' }) {
       >
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#f5efe6" stopOpacity="0.08" />
-            <stop offset="0.62" stopColor="#f5efe6" stopOpacity="0.16" />
-            <stop offset="1" stopColor="#ff6b35" stopOpacity="0.34" />
+            <stop offset="0" stopColor="#f2efe4" stopOpacity="0.08" />
+            <stop offset="0.62" stopColor="#f2efe4" stopOpacity="0.16" />
+            <stop offset="1" stopColor="#cbf65f" stopOpacity="0.34" />
           </linearGradient>
         </defs>
         <g

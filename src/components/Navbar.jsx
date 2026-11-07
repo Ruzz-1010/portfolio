@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   ArrowUpRight,
   BriefcaseBusiness,
   Clock3,
   FolderGit2,
-  GitBranch,
   Layers,
   Mail,
   Menu,
+  Sparkles,
   User,
   Wifi,
   X,
@@ -35,18 +35,85 @@ function StatusModule({ className = '', children }) {
   )
 }
 
+/**
+ * The little header companion. Its pupils follow the pointer, it blinks, and
+ * it bobs while the bar is collapsed.
+ */
+function Mascot({ compact, mascotRef }) {
+  return (
+    <span
+      ref={mascotRef}
+      aria-hidden="true"
+      className={`mascot relative grid place-items-center transition-[width,height] duration-500 ${
+        compact ? 'mascot-bob size-9' : 'size-[28px]'
+      }`}
+    >
+      {compact && (
+        <span className="mascot-halo absolute inset-0 rounded-[13px] border border-accent/45" />
+      )}
+
+      <span
+        className={`relative grid place-items-center rounded-[11px] bg-gradient-to-b from-[#e4ffa0] to-[#b7eb3a] shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_8px_20px_-9px_rgba(203,246,95,0.85)] ring-1 ring-[#0b0c0a]/25 transition-transform duration-300 group-hover:scale-105 ${
+          compact ? 'size-9' : 'size-[28px]'
+        }`}
+      >
+        <span className="flex items-center gap-[4px]">
+          <span className="mascot-eye grid h-[11px] w-[8px] place-items-center rounded-full bg-[#faf8ee]">
+            <span className="mascot-pupil size-[4px] rounded-full bg-[#14170d]" />
+          </span>
+          <span
+            className="mascot-eye grid h-[11px] w-[8px] place-items-center rounded-full bg-[#faf8ee]"
+            style={{ animationDelay: '45ms' }}
+          >
+            <span className="mascot-pupil size-[4px] rounded-full bg-[#14170d]" />
+          </span>
+        </span>
+        <span
+          className={`mt-[3px] rounded-b-full border-b-2 border-[#14170d]/70 ${
+            compact ? 'h-[5px] w-[10px]' : 'h-[4px] w-[8px]'
+          }`}
+        />
+      </span>
+
+      <span
+        className={`pointer-events-none absolute -right-1 -top-1 leading-none text-accent transition-all duration-500 ${
+          compact ? 'text-[11px]' : 'text-[8px] opacity-70'
+        }`}
+      >
+        ✦
+      </span>
+    </span>
+  )
+}
+
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  const [expanded, setExpanded] = useState(false)
   const [active, setActive] = useState('')
+  const headerRef = useRef(null)
+  const mascotRef = useRef(null)
+  const triggerRef = useRef(null)
+  const idleTimer = useRef(0)
 
+  const collapse = () => {
+    setOpen(false)
+    setExpanded(false)
+  }
+
+  // Shrink back into the companion as soon as the page scrolls.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16)
+    const onScroll = () => {
+      if (window.scrollY > 24) {
+        setOpen(false)
+        setExpanded(false)
+      }
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Track which section is in view.
   useEffect(() => {
     const sections = navLinks
       .map((link) => document.getElementById(link.href.slice(1)))
@@ -65,6 +132,7 @@ export default function Navbar() {
     return () => observer.disconnect()
   }, [])
 
+  // Keep the page still while the mobile panel is open.
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
     return () => {
@@ -72,27 +140,154 @@ export default function Navbar() {
     }
   }, [open])
 
+  // Escape collapses the header; clicking outside does too.
   useEffect(() => {
     const onKeyDown = (event) => {
-      if (event.key === 'Escape') setOpen(false)
+      if (event.key === 'Escape') {
+        setOpen(false)
+        setExpanded(false)
+      }
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
 
+  useEffect(() => {
+    if (!expanded) return
+
+    const onPointerDown = (event) => {
+      if (!headerRef.current?.contains(event.target)) {
+        setOpen(false)
+        setExpanded(false)
+      }
+    }
+
+    document.addEventListener('pointerdown', onPointerDown)
+    return () => document.removeEventListener('pointerdown', onPointerDown)
+  }, [expanded])
+
+  // If nobody interacts with the open header for a while, it goes back to sleep.
+  useEffect(() => {
+    if (!expanded || open) return
+
+    const goToSleep = () => {
+      const focused = document.activeElement
+      if (focused && headerRef.current?.contains(focused) && focused !== triggerRef.current) {
+        triggerRef.current?.focus({ preventScroll: true })
+      }
+      setExpanded(false)
+    }
+    const reset = () => {
+      window.clearTimeout(idleTimer.current)
+      idleTimer.current = window.setTimeout(goToSleep, 9000)
+    }
+    reset()
+    const node = headerRef.current
+    node?.addEventListener('pointermove', reset)
+    node?.addEventListener('pointerdown', reset)
+    node?.addEventListener('focusin', reset)
+
+    return () => {
+      window.clearTimeout(idleTimer.current)
+      node?.removeEventListener('pointermove', reset)
+      node?.removeEventListener('pointerdown', reset)
+      node?.removeEventListener('focusin', reset)
+    }
+  }, [expanded, open])
+
+  // Pupils follow the cursor, then wander on their own when the page is idle.
+  useEffect(() => {
+    const state = { frame: 0, wander: 0 }
+
+    const applyGaze = (x, y) => {
+      const node = mascotRef.current
+      if (!node) return
+      node.style.setProperty('--gaze-x', `${x}px`)
+      node.style.setProperty('--gaze-y', `${y}px`)
+    }
+
+    const wander = () => {
+      applyGaze((Math.random() * 2 - 1) * 1.8, (Math.random() * 2 - 1) * 1.4)
+      state.wander = window.setTimeout(wander, 1700 + Math.random() * 1500)
+    }
+
+    const scheduleWander = () => {
+      window.clearTimeout(state.wander)
+      state.wander = window.setTimeout(wander, 2400)
+    }
+
+    const onMove = (event) => {
+      window.clearTimeout(state.wander)
+      if (state.frame) window.cancelAnimationFrame(state.frame)
+      state.frame = window.requestAnimationFrame(() => {
+        const node = mascotRef.current
+        if (!node) return
+
+        const rect = node.getBoundingClientRect()
+        const dx = event.clientX - (rect.left + rect.width / 2)
+        const dy = event.clientY - (rect.top + rect.height / 2)
+        const distance = Math.hypot(dx, dy) || 1
+        const reach = Math.min(2.4, distance / 45)
+
+        applyGaze((dx / distance) * reach, (dy / distance) * reach)
+      })
+      scheduleWander()
+    }
+
+    scheduleWander()
+    window.addEventListener('pointermove', onMove, { passive: true })
+    return () => {
+      window.removeEventListener('pointermove', onMove)
+      window.clearTimeout(state.wander)
+      if (state.frame) window.cancelAnimationFrame(state.frame)
+    }
+  }, [])
+
   return (
-    <>
-      <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
-        <nav
-          aria-label="Main navigation"
-          className={`mx-auto flex h-[52px] max-w-6xl items-center gap-1.5 rounded-2xl border px-2 transition-[background-color,border-color,box-shadow] duration-300 ${
-            scrolled || open
-              ? 'border-cream/[0.13] bg-[#0b0908]/98 shadow-[0_26px_70px_-32px_rgba(0,0,0,0.95)]'
-              : 'border-cream/[0.07] bg-[#0c0a09]/55'
-          } backdrop-blur-2xl`}
+    <header ref={headerRef} className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
+      <nav
+        aria-label="Main navigation"
+        style={{
+          width: expanded ? '100%' : '58px',
+          maxWidth: expanded ? '72rem' : '58px',
+        }}
+        className={`relative mx-auto flex h-[52px] items-center border backdrop-blur-2xl transition-[width,max-width,padding,background-color,border-color,border-radius,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          expanded
+            ? 'rounded-2xl border-cream/[0.13] bg-[#0b0c0a]/95 px-2 shadow-[0_26px_70px_-32px_rgba(0,0,0,0.95)]'
+            : 'rounded-[18px] border-accent/25 bg-[#10130d]/85 px-0 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.9)] hover:border-accent/50'
+        }`}
+      >
+        <button
+          ref={triggerRef}
+          type="button"
+          onClick={() => (expanded ? collapse() : setExpanded(true))}
+          aria-expanded={expanded}
+          aria-controls="header-content"
+          aria-label={expanded ? 'Collapse navigation' : 'Open navigation — meet Ruzz AI'}
+          className="group relative grid h-[52px] w-[52px] shrink-0 place-items-center rounded-[14px] outline-none transition-colors hover:bg-cream/[0.04] focus-visible:ring-2 focus-visible:ring-accent/70"
+        >
+          <Mascot compact={!expanded} mascotRef={mascotRef} />
+
+          {!expanded && (
+            <span className="pointer-events-none absolute top-[calc(100%+7px)] left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border border-cream/10 bg-surface/95 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.14em] text-muted opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100">
+              open header
+            </span>
+          )}
+        </button>
+
+        <div
+          id="header-content"
+          inert={!expanded}
+          aria-hidden={!expanded}
+          className={`flex min-w-0 flex-1 items-center gap-1.5 transition-all ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            expanded
+              ? 'max-w-[1200px] overflow-visible opacity-100 delay-75 duration-300'
+              : 'max-w-0 overflow-hidden opacity-0 duration-200'
+          }`}
         >
           <a
             href="#home"
+            onClick={collapse}
             className="group flex h-8 shrink-0 items-center rounded-[10px] px-2.5 transition-colors duration-200 hover:bg-cream/[0.05]"
             aria-label={`${profile.name} — home`}
           >
@@ -110,6 +305,7 @@ export default function Navbar() {
                 <li key={link.href}>
                   <a
                     href={link.href}
+                    onClick={collapse}
                     aria-current={isActive ? 'true' : undefined}
                     className={`group relative flex h-8 items-center gap-1.5 rounded-[9px] px-2.5 text-[12px] font-medium transition-colors duration-200 ${
                       isActive
@@ -119,9 +315,7 @@ export default function Navbar() {
                   >
                     <span
                       className={`font-mono text-[9px] tracking-[0.02em] transition-colors ${
-                        isActive
-                          ? 'text-accent'
-                          : 'text-muted/40 group-hover:text-muted/70'
+                        isActive ? 'text-accent' : 'text-muted/40 group-hover:text-muted/70'
                       }`}
                     >
                       {String(index + 1).padStart(2, '0')}
@@ -150,8 +344,8 @@ export default function Navbar() {
             <span className="mx-1 hidden h-5 w-px bg-cream/[0.08] md:block" aria-hidden="true" />
 
             <StatusModule className="hidden xl:flex">
-              <GitBranch size={11} className="text-accent/80" aria-hidden="true" />
-              main
+              <Sparkles size={11} className="text-accent/80" aria-hidden="true" />
+              ruzz.ai
             </StatusModule>
 
             <StatusModule className="hidden lg:flex">
@@ -171,7 +365,8 @@ export default function Navbar() {
 
             <a
               href="#contact"
-              className="group ml-0.5 hidden h-8 items-center gap-1 rounded-[9px] bg-accent px-3 font-mono text-[10px] uppercase tracking-[0.12em] text-[#1b0c05] transition-colors hover:bg-accent-bright sm:inline-flex"
+              onClick={collapse}
+              className="group ml-0.5 hidden h-8 items-center gap-1 rounded-[9px] bg-accent px-3 font-mono text-[10px] uppercase tracking-[0.12em] text-[#14180a] transition-colors hover:bg-accent-bright sm:inline-flex"
             >
               let&apos;s talk
               <ArrowUpRight
@@ -192,18 +387,18 @@ export default function Navbar() {
               {open ? <X size={17} /> : <Menu size={17} />}
             </button>
           </div>
-        </nav>
-      </header>
+        </div>
+      </nav>
 
       {open && (
         <div
           id="mobile-menu"
-          className="fixed inset-x-3 bottom-3 top-[4.35rem] z-40 flex flex-col overflow-y-auto rounded-2xl border border-cream/[0.1] bg-[#0c0a09]/97 p-4 backdrop-blur-2xl md:hidden"
+          className="fixed inset-x-3 bottom-3 top-[4.35rem] z-40 flex flex-col overflow-y-auto rounded-2xl border border-cream/[0.1] bg-[#0c0e0b]/97 p-4 backdrop-blur-2xl md:hidden"
         >
           <div className="flex items-center gap-2 border-b border-cream/[0.07] pb-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted/70">
             <span className="flex items-center gap-1.5">
-              <GitBranch size={11} className="text-accent" aria-hidden="true" />
-              main
+              <Sparkles size={11} className="text-accent" aria-hidden="true" />
+              ruzz.ai
             </span>
             <span className="text-muted/25">/</span>
             <span className="flex items-center gap-1.5">
@@ -225,7 +420,7 @@ export default function Navbar() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    onClick={() => setOpen(false)}
+                    onClick={collapse}
                     className={`group flex items-center gap-3 rounded-xl px-3 py-3 transition-colors ${
                       isActive
                         ? 'bg-accent/[0.12] text-cream'
@@ -256,8 +451,8 @@ export default function Navbar() {
 
           <a
             href="#contact"
-            onClick={() => setOpen(false)}
-            className="btn-shine mt-4 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-accent px-4 font-mono text-[11px] uppercase tracking-[0.14em] text-[#1b0c05]"
+            onClick={collapse}
+            className="btn-shine mt-4 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-accent px-4 font-mono text-[11px] uppercase tracking-[0.14em] text-[#14180a]"
           >
             start a conversation
             <ArrowUpRight size={14} aria-hidden="true" />
@@ -285,6 +480,6 @@ export default function Navbar() {
           </div>
         </div>
       )}
-    </>
+    </header>
   )
 }

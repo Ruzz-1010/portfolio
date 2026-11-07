@@ -67,7 +67,7 @@ import { Boxes, Cloud, Cpu, CreditCard, FlaskConical, Palette, Workflow } from '
 
 const techMap = {
   react: { Icon: SiReact, color: SiReactHex },
-  'next.js': { Icon: SiNextdotjs, color: '#f5efe6' },
+  'next.js': { Icon: SiNextdotjs, color: '#f2efe4' },
   typescript: { Icon: SiTypescript, color: SiTypescriptHex },
   javascript: { Icon: SiJavascript, color: SiJavascriptHex },
   'tailwind css': { Icon: SiTailwindcss, color: SiTailwindcssHex },
@@ -79,16 +79,16 @@ const techMap = {
   prisma: { Icon: SiPrisma, color: '#a5b4fc' },
   graphql: { Icon: SiGraphql, color: SiGraphqlHex },
   redis: { Icon: SiRedis, color: SiRedisHex },
-  'git & github': { Icon: SiGithub, color: '#f5efe6' },
+  'git & github': { Icon: SiGithub, color: '#f2efe4' },
   docker: { Icon: SiDocker, color: SiDockerHex },
-  'ci/cd': { Icon: Workflow, color: '#ffd166' },
+  'ci/cd': { Icon: Workflow, color: '#e8e2cf' },
   aws: { Icon: Cloud, color: '#ffb84d' },
-  playwright: { Icon: FlaskConical, color: '#7ce7c4' },
+  playwright: { Icon: FlaskConical, color: '#a6d9a8' },
   figma: { Icon: SiFigma, color: SiFigmaHex },
   vitest: { Icon: SiVitest, color: SiVitestHex },
   jest: { Icon: SiJest, color: SiJestHex },
   supabase: { Icon: SiSupabase, color: SiSupabaseHex },
-  vercel: { Icon: SiVercel, color: '#f5efe6' },
+  vercel: { Icon: SiVercel, color: '#f2efe4' },
   linux: { Icon: SiLinux, color: SiLinuxHex },
   postman: { Icon: SiPostman, color: SiPostmanHex },
   sentry: { Icon: SiSentry, color: '#a78bfa' },
@@ -99,7 +99,7 @@ const techMap = {
   laravel: { Icon: SiLaravel, color: SiLaravelHex },
   php: { Icon: SiPhp, color: SiPhpHex },
   mongodb: { Icon: SiMongodb, color: SiMongodbHex },
-  'socket.io': { Icon: SiSocketdotio, color: '#f5efe6' },
+  'socket.io': { Icon: SiSocketdotio, color: '#f2efe4' },
   sqlite: { Icon: SiSqlite, color: SiSqliteHex },
   arduino: { Icon: SiArduino, color: SiArduinoHex },
   'alpine.js': { Icon: SiAlpinedotjs, color: SiAlpinedotjsHex },
@@ -107,7 +107,7 @@ const techMap = {
   esp32: { Icon: Cpu, color: '#e7352c' },
   paymongo: { Icon: CreditCard, color: '#37c4b6' },
   riverpod: { Icon: Boxes, color: '#61dafb' },
-  'material 3': { Icon: Palette, color: '#b9a7ff' },
+  'material 3': { Icon: Palette, color: '#a8b3a0' },
 }
 
 export function getTech(name) {

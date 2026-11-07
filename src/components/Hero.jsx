@@ -188,9 +188,9 @@ export default function Hero() {
                       y2="7"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop stopColor="#ffd166" />
-                      <stop offset="0.55" stopColor="#ff6b35" />
-                      <stop offset="1" stopColor="#b9a7ff" />
+                      <stop stopColor="#e8e2cf" />
+                      <stop offset="0.55" stopColor="#cbf65f" />
+                      <stop offset="1" stopColor="#a8b3a0" />
                     </linearGradient>
                   </defs>
                   <path
@@ -215,7 +215,7 @@ export default function Hero() {
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
                 href="#projects"
-                className="btn-shine group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-[#1b0c05] transition-all duration-200 hover:bg-accent-bright hover:shadow-[0_0_40px_-8px_rgba(255,107,53,0.7)]"
+                className="btn-shine group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-[#14180a] transition-all duration-200 hover:bg-accent-bright hover:shadow-[0_0_40px_-8px_rgba(203,246,95,0.7)]"
               >
                 View my work
                 <ArrowDown

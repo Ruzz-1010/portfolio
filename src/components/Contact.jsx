@@ -76,7 +76,7 @@ export default function Contact() {
                 <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">
                   <a
                     href={`mailto:${profile.email}`}
-                    className="btn-shine group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-[#1b0c05] transition-all duration-200 hover:bg-accent-bright hover:shadow-[0_0_40px_-8px_rgba(255,107,53,0.7)]"
+                    className="btn-shine group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-[#14180a] transition-all duration-200 hover:bg-accent-bright hover:shadow-[0_0_40px_-8px_rgba(203,246,95,0.7)]"
                   >
                     <Mail size={15} aria-hidden="true" />
                     Say hello

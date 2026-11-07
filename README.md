@@ -42,21 +42,21 @@ Almost all content lives in a single file: **`src/data/portfolio.js`**.
 | `techMarquee` | Scrolling technologies band |
 | `skillGroups` | Stack cards |
 | `additionalSkills` | Small chips below the stack |
-| `projects` | Project cards (title, description, tags, links, visual variant, accent color, wide/featured layout) |
+| `projects` | Project cards (title, description, tags, links, screenshot, accent color, wide/featured layout) |
 | `experience` | Timeline entries |
 | `principles` | “How I work” rows in About |
 | `quickFacts` | Quick facts card in About |
 
 ### Project visuals
 
-Each project picks a hand-built mockup via the `visual` field:
+Each card shows a real screenshot of the project's home page, stored in **`public/projects/`**:
 
-- `falcon` — ocean telemetry dashboard
-- `care` — prescription scan + pharmacy comparison
-- `court` — court booking grid
-- `food` — live order tracking + map
+- `falcon-01.webp` — live GitHub Pages presentation
+- `puertoscancare.webp` — Flutter welcome screen
+- `pickleball.webp` — Laravel reservation home page
+- `food-ordering.webp` — React storefront home page
 
-Swap `visual` on any project to change its artwork — no screenshots required.
+Point a project's `image` field at a new file to swap its artwork. Keep screenshots at **16:10** (for example 1440×900) so every card crops consistently.
 
 ### Résumé
 
@@ -84,13 +84,16 @@ Update the title, description, and Open Graph tags in **`index.html`**. The favi
 Design tokens live in **`src/index.css`** under `@theme`:
 
 ```css
---color-surface: #0a0908;  /* warm near-black */
---color-cream: #f5efe6;    /* primary text */
---color-muted: #a69e93;    /* secondary text */
---color-accent: #ff6b35;   /* ember orange */
---color-butter: #ffd166;
---color-lilac: #b9a7ff;
---color-mint: #7ce7c4;
+--color-surface: #0b0c0a;  /* ink graphite */
+--color-surface-2: #111310;
+--color-raised: #191c16;
+--color-cream: #f2efe4;    /* warm bone */
+--color-muted: #a4a499;    /* stone */
+--color-accent: #cbf65f;   /* acid lime */
+--color-accent-bright: #e3ff9c;
+--color-butter: #e8e2cf;
+--color-lilac: #a8b3a0;
+--color-mint: #a6d9a8;
 
 --font-display: 'Bricolage Grotesque', ...;
 --font-sans: 'Geist', ...;
@@ -109,11 +112,12 @@ Custom keyframes and utility classes live in `src/index.css`: scroll reveals (`.
 ```
 public/
   favicon.svg
+  projects/            # project home-page screenshots (WebP, 16:10)
   resume.pdf
 src/
   components/
     About.jsx          # bio + quick facts + principles
-    BigMarquee.jsx     # orange availability marquee band
+    BigMarquee.jsx     # lime availability marquee band
     Contact.jsx        # email CTA with copy-to-clipboard
     CountUp.jsx        # animated hero stats
     CursorGlow.jsx     # pointer-following ambient glow
@@ -122,8 +126,8 @@ src/
     Hero.jsx           # headline, CTAs, tilting code card, stats
     LocalTime.jsx      # live local clock
     Logo.jsx           # custom RUZZ wordmark + R monogram
-    Navbar.jsx         # floating Hyprland/Waybar-style bar + mobile launcher
-    ProjectVisual.jsx  # CSS-built project mockups (falcon, care, court, food)
+    Navbar.jsx         # AI-companion header that expands into the Waybar-style nav
+    ProjectVisual.jsx  # real project screenshot with crop + edge treatment
     Projects.jsx       # featured wide card, project grid, private repo handling
     Reveal.jsx         # IntersectionObserver scroll reveals
     RotatingStamp.jsx  # circular rotating text badge
