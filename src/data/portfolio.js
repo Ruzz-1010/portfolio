@@ -6,12 +6,15 @@
  * so you can personalize the site without touching any component code.
  */
 
+// Keeps public assets working from the repo root in dev and /portfolio/ on GitHub Pages.
+const asset = (path) => `${import.meta.env.BASE_URL}${path}`
+
 export const profile = {
   name: 'Ruzz',
   role: 'Full-Stack Developer',
   location: 'Puerto Princesa City, PH',
   email: 'johnruzzelcorrea8@gmail.com',
-  resumeUrl: '/resume.pdf',
+  resumeUrl: asset('resume.pdf'),
   availability: 'Open to internships & junior roles',
   currentlyBuilding: 'FALCON-01',
   // Used in the hero + meta description copy.
@@ -96,7 +99,7 @@ export const projects = [
       'A thesis-stage IoT buoy that tracks wave pressure, wind, GPS drift, and solar power, streaming live telemetry into a React dashboard with short-term wave-height prediction.',
     tags: ['Python', 'React', 'TypeScript', 'ESP32', 'SQLite'],
     year: '2026',
-    image: '/projects/falcon-01.webp',
+    image: asset('projects/falcon-01.webp'),
     imageAlt:
       'FALCON-01 home page — solar-powered coastal observation buoy presentation',
     accent: '#cbf65f',
@@ -111,7 +114,7 @@ export const projects = [
       'An AI-assisted thesis app that turns verified prescriptions into quantity-aware pharmacy comparisons — factoring in stock, cost, distance, and inventory freshness. Built in Flutter with Material 3.',
     tags: ['Flutter', 'Dart', 'Riverpod', 'Material 3'],
     year: '2026',
-    image: '/projects/puertoscancare.webp',
+    image: asset('projects/puertoscancare.webp'),
     imageAlt:
       'PuertoScanCare welcome screen — prescription-to-pharmacy decision support app',
     accent: '#9fd8a8',
@@ -125,7 +128,7 @@ export const projects = [
       'A Laravel reservation platform for a private pickleball facility — court availability, PayMongo QRPh checkout, receipts, email confirmations, and admin reporting.',
     tags: ['Laravel', 'PHP', 'PostgreSQL', 'Tailwind CSS', 'Alpine.js'],
     year: '2026',
-    image: '/projects/pickleball.webp',
+    image: asset('projects/pickleball.webp'),
     imageAlt:
       'San Jose Pickleball home page — court reservation hero with live availability',
     accent: '#cbf65f',
@@ -139,7 +142,7 @@ export const projects = [
       'A full-stack food ordering platform with customer, restaurant, rider, and admin dashboards — role-based auth, live order tracking, restaurant analytics, and map-based delivery.',
     tags: ['React', 'Express', 'MongoDB', 'Tailwind CSS', 'Leaflet'],
     year: '2026',
-    image: '/projects/food-ordering.webp',
+    image: asset('projects/food-ordering.webp'),
     imageAlt:
       'FoodExpress home page — food delivery storefront with featured restaurants',
     accent: '#e8e2cf',
