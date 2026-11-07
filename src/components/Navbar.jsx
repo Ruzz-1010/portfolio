@@ -88,7 +88,7 @@ function Mascot({ compact, mascotRef }) {
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-  const [expanded, setExpanded] = useState(false)
+  const [expanded, setExpanded] = useState(true)
   const [active, setActive] = useState('')
   const headerRef = useRef(null)
   const mascotRef = useRef(null)
@@ -108,7 +108,6 @@ export default function Navbar() {
         setExpanded(false)
       }
     }
-    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
