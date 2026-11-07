@@ -30,7 +30,7 @@ export default function Skills() {
       className="relative border-y border-cream/[0.06] bg-surface-2/40 py-24 sm:py-32"
     >
       <div
-        className="pointer-events-none absolute left-1/2 top-0 h-80 w-[640px] -translate-x-1/2 rounded-full bg-accent/[0.06] blur-[100px]"
+        className="pointer-events-none absolute left-1/2 top-0 h-64 w-[320px] -translate-x-1/2 rounded-full bg-accent/[0.06] blur-[70px] sm:h-80 sm:w-[640px] sm:blur-[100px]"
         aria-hidden="true"
       />
 

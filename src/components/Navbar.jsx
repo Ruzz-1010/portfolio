@@ -68,11 +68,21 @@ function Mascot({ compact, mascotRef }) {
             <span className="mascot-pupil size-[4px] rounded-full bg-[#14170d]" />
           </span>
         </span>
-        <span
-          className={`mt-[3px] rounded-b-full border-b-2 border-[#14170d]/70 ${
-            compact ? 'h-[5px] w-[10px]' : 'h-[4px] w-[8px]'
+        <svg
+          viewBox="0 0 24 10"
+          fill="none"
+          aria-hidden="true"
+          className={`mascot-smile mt-[1px] overflow-visible transition-transform duration-300 group-hover:scale-110 ${
+            compact ? 'h-[9px] w-[16px]' : 'h-[8px] w-[13px]'
           }`}
-        />
+        >
+          <path
+            d="M4.5 2.4c1.8 3.2 4.4 4.7 7.5 4.7s5.7-1.5 7.5-4.7"
+            stroke="#14170d"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+          />
+        </svg>
       </span>
 
       <span
@@ -249,7 +259,10 @@ export default function Navbar() {
   }, [])
 
   return (
-    <header ref={headerRef} className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
+    <header
+      ref={headerRef}
+      className="fixed inset-x-0 top-0 z-50 px-3 pt-[calc(env(safe-area-inset-top)+0.75rem)] sm:px-5 sm:pt-[calc(env(safe-area-inset-top)+1rem)]"
+    >
       <nav
         aria-label="Main navigation"
         style={{
@@ -398,7 +411,7 @@ export default function Navbar() {
       {open && (
         <div
           id="mobile-menu"
-          className="fixed inset-x-3 bottom-3 top-[4.35rem] z-40 flex flex-col overflow-y-auto rounded-2xl border border-cream/[0.1] bg-[#0c0e0b]/97 p-4 backdrop-blur-2xl md:hidden"
+          className="fixed inset-x-3 bottom-[calc(env(safe-area-inset-bottom)+0.75rem)] top-[calc(env(safe-area-inset-top)+4.35rem)] z-40 flex flex-col overflow-y-auto rounded-2xl border border-cream/[0.1] bg-[#0c0e0b]/97 p-4 backdrop-blur-2xl md:hidden"
         >
           <div className="flex items-center gap-2 border-b border-cream/[0.07] pb-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted/70">
             <span className="flex items-center gap-1.5">

@@ -131,9 +131,9 @@ export default function Hero() {
     <section id="home" className="relative overflow-hidden pb-16 pt-28 sm:pb-20 sm:pt-36">
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
         <div className="absolute inset-0 bg-dots opacity-70" />
-        <div className="animate-drift absolute -top-40 left-[6%] size-[560px] rounded-full bg-accent/[0.13] blur-[130px]" />
-        <div className="animate-drift-slow absolute -right-32 top-10 size-[480px] rounded-full bg-lilac/[0.09] blur-[120px]" />
-        <div className="absolute bottom-0 left-1/2 h-[320px] w-[680px] -translate-x-1/2 rounded-full bg-butter/[0.05] blur-[120px]" />
+        <div className="animate-drift absolute -top-40 left-[6%] size-[320px] rounded-full bg-accent/[0.13] blur-[80px] sm:size-[560px] sm:blur-[130px]" />
+        <div className="animate-drift-slow absolute -right-32 top-10 size-[260px] rounded-full bg-lilac/[0.09] blur-[70px] sm:size-[480px] sm:blur-[120px]" />
+        <div className="absolute bottom-0 left-1/2 h-[220px] w-[340px] -translate-x-1/2 rounded-full bg-butter/[0.05] blur-[80px] sm:h-[320px] sm:w-[680px] sm:blur-[120px]" />
         <div className="absolute left-1/2 top-28 hidden size-[680px] -translate-x-1/2 rounded-full border border-cream/[0.04] lg:block" />
         <span className="animate-float absolute left-[48%] top-24 font-serif text-3xl text-butter/70">
           ✦
@@ -143,8 +143,8 @@ export default function Hero() {
         </span>
       </div>
 
-      <div className="mx-auto grid max-w-6xl items-center gap-16 px-5 sm:px-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-12">
-        <div>
+      <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 sm:gap-16 sm:px-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-12">
+        <div className="min-w-0">
           <div className="hero-rise">
             <div className="inline-flex items-center gap-2.5 rounded-full border border-mint/20 bg-mint/[0.06] px-3.5 py-1.5">
               <span className="relative grid size-1.5 place-items-center">
@@ -166,7 +166,7 @@ export default function Hero() {
               </span>
             </p>
 
-            <h1 className="mt-5 font-display text-[3.15rem] font-semibold leading-[0.94] tracking-[-0.045em] text-cream sm:text-6xl lg:text-[4.75rem]">
+            <h1 className="mt-5 font-display text-[clamp(2.55rem,8.6vw,3.15rem)] font-semibold leading-[0.94] tracking-[-0.045em] text-cream sm:text-6xl lg:text-[4.75rem]">
               I build digital
               <br />
               products that
@@ -260,7 +260,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="hero-rise lg:pl-2" style={{ animationDelay: '220ms' }}>
+        <div className="hero-rise min-w-0 lg:pl-2" style={{ animationDelay: '220ms' }}>
           <CodeCard tilt={tilt} onMouseMove={handleTilt} onMouseLeave={resetTilt} />
         </div>
       </div>

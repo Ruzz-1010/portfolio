@@ -135,7 +135,7 @@ export default function About() {
                 </div>
 
                 <div className="p-6">
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-5">
+                  <div className="grid grid-cols-1 gap-x-4 gap-y-5 min-[380px]:grid-cols-2">
                     {quickFacts.map((fact, index) => {
                       const Icon = factIcons[fact.icon] ?? Sparkles
                       return (

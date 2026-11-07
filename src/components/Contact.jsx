@@ -35,11 +35,11 @@ export default function Contact() {
                 aria-hidden="true"
               />
               <div
-                className="animate-drift pointer-events-none absolute -top-36 left-1/2 h-80 w-[600px] -translate-x-1/2 rounded-full bg-accent/[0.16] blur-[110px]"
+                className="animate-drift pointer-events-none absolute -top-36 left-1/2 h-64 w-[320px] -translate-x-1/2 rounded-full bg-accent/[0.16] blur-[80px] sm:h-80 sm:w-[600px] sm:blur-[110px]"
                 aria-hidden="true"
               />
               <div
-                className="animate-drift-slow pointer-events-none absolute -bottom-44 right-0 size-80 rounded-full bg-lilac/[0.1] blur-[110px]"
+                className="animate-drift-slow pointer-events-none absolute -bottom-44 right-0 size-56 rounded-full bg-lilac/[0.1] blur-[80px] sm:size-80 sm:blur-[110px]"
                 aria-hidden="true"
               />
               <span

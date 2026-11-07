@@ -24,6 +24,8 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
@@ -34,6 +36,21 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overflow-x: clip;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
   }
 
   ::selection {
@@ -95,6 +112,18 @@
 .reveal.is-visible {
   opacity: 1;
   transform: none;
+  will-change: auto;
+}
+
+/* ---------- Touch / small-screen tuning ---------- */
+@media (max-width: 640px) {
+  .grain::after {
+    opacity: 0.018;
+  }
+
+  .reveal {
+    transform: translateY(18px);
+  }
 }
 
 /* ---------- Backgrounds ---------- */
