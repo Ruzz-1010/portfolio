@@ -49,7 +49,7 @@ function Mascot({ compact, mascotRef }) {
       }`}
     >
       {compact && (
-        <span className="mascot-halo absolute inset-0 rounded-[13px] border border-accent/45" />
+        <span className="mascot-halo absolute inset-0 rounded-[14px] bg-accent/30 blur-md" />
       )}
 
       <span
@@ -179,7 +179,7 @@ export default function Navbar() {
     }
     const reset = () => {
       window.clearTimeout(idleTimer.current)
-      idleTimer.current = window.setTimeout(goToSleep, 9000)
+      idleTimer.current = window.setTimeout(goToSleep, 5000)
     }
     reset()
     const node = headerRef.current
@@ -254,7 +254,7 @@ export default function Navbar() {
         className={`relative mx-auto flex h-[52px] items-center border backdrop-blur-2xl transition-[width,max-width,padding,background-color,border-color,border-radius,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           expanded
             ? 'rounded-2xl border-cream/[0.13] bg-[#0b0c0a]/95 px-2 shadow-[0_26px_70px_-32px_rgba(0,0,0,0.95)]'
-            : 'rounded-[18px] border-accent/25 bg-[#10130d]/85 px-0 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.9)] hover:border-accent/50'
+            : 'rounded-[18px] border-transparent bg-[#0e110c]/55 px-0 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.75)]'
         }`}
       >
         <button
