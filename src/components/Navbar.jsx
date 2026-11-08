@@ -6,6 +6,7 @@ import {
   FolderGit2,
   Layers,
   Mail,
+  MapPin,
   Menu,
   Sparkles,
   User,
@@ -23,6 +24,14 @@ const navIcons = {
   '#projects': FolderGit2,
   '#experience': BriefcaseBusiness,
   '#contact': Mail,
+}
+
+const navDescriptions = {
+  '#about': 'Story, focus, and quick facts',
+  '#stack': 'Tools I reach for',
+  '#projects': 'Selected work and demos',
+  '#experience': 'Timeline and resume',
+  '#contact': "Let's build something",
 }
 
 function StatusModule({ className = '', children }) {
@@ -261,21 +270,28 @@ export default function Navbar() {
   return (
     <header
       ref={headerRef}
-      className="fixed inset-x-0 top-0 z-50 px-3 pt-[calc(env(safe-area-inset-top)+0.75rem)] sm:px-5 sm:pt-[calc(env(safe-area-inset-top)+1rem)]"
+      className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-[calc(env(safe-area-inset-top)+0.75rem)] sm:px-5 sm:pt-[calc(env(safe-area-inset-top)+1rem)]"
     >
       <nav
         aria-label="Main navigation"
-        style={{
-          width: expanded ? '100%' : '58px',
-          maxWidth: expanded ? '72rem' : '58px',
-        }}
-        className={`relative mx-auto flex h-[52px] items-center border backdrop-blur-2xl transition-[width,max-width,padding,background-color,border-color,border-radius,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          expanded
-            ? 'rounded-2xl border-cream/[0.13] bg-[#0b0c0a]/95 px-2 shadow-[0_26px_70px_-32px_rgba(0,0,0,0.95)]'
-            : 'rounded-[18px] border-transparent bg-[#0e110c]/55 px-0 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.75)]'
-        }`}
+        className="pointer-events-none relative z-[35] mx-auto h-[52px] w-full max-w-6xl"
       >
-        <button
+        {/* The pill is its own layer so expanding it never reflows the page. */}
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 border [contain:layout_paint] transition-[width,background-color,border-color,border-radius] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            expanded
+              ? 'w-full rounded-2xl border-cream/[0.13] bg-[#0b0c0a]/97 shadow-[0_26px_70px_-32px_rgba(0,0,0,0.95)]'
+              : 'w-[58px] rounded-[18px] border-transparent bg-[#0e110c]/80 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.75)]'
+          }`}
+        />
+
+        <div
+          className={`pointer-events-auto absolute top-0 z-10 transition-[left,transform] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            expanded ? 'left-2 translate-x-0' : 'left-1/2 -translate-x-1/2'
+          }`}
+        >
+          <button
           ref={triggerRef}
           type="button"
           onClick={() => (expanded ? collapse() : setExpanded(true))}
@@ -291,16 +307,17 @@ export default function Navbar() {
               open header
             </span>
           )}
-        </button>
+          </button>
+        </div>
 
         <div
           id="header-content"
           inert={!expanded}
           aria-hidden={!expanded}
-          className={`flex min-w-0 flex-1 items-center gap-1.5 transition-all ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`relative z-[5] flex h-full min-w-0 items-center gap-1.5 pl-[60px] pr-2 transition-[opacity,transform] ease-[cubic-bezier(0.22,1,0.36,1)] ${
             expanded
-              ? 'max-w-[1200px] overflow-visible opacity-100 delay-75 duration-300'
-              : 'max-w-0 overflow-hidden opacity-0 duration-200'
+              ? 'pointer-events-auto translate-x-0 opacity-100 delay-[130ms] duration-300'
+              : 'pointer-events-none -translate-x-2 opacity-0 delay-0 duration-150'
           }`}
         >
           <a
@@ -408,96 +425,133 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {open && (
-        <div
-          id="mobile-menu"
-          className="fixed inset-x-3 bottom-[calc(env(safe-area-inset-bottom)+0.75rem)] top-[calc(env(safe-area-inset-top)+4.35rem)] z-40 flex flex-col overflow-y-auto rounded-2xl border border-cream/[0.1] bg-[#0c0e0b]/97 p-4 backdrop-blur-2xl md:hidden"
-        >
-          <div className="flex items-center gap-2 border-b border-cream/[0.07] pb-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted/70">
-            <span className="flex items-center gap-1.5">
-              <Sparkles size={11} className="text-accent" aria-hidden="true" />
-              ruzz.ai
-            </span>
-            <span className="text-muted/25">/</span>
-            <span className="flex items-center gap-1.5">
-              <span className="size-1.5 rounded-full bg-mint" aria-hidden="true" />
-              online
-            </span>
-            <span className="ml-auto flex items-center gap-1.5">
-              <Clock3 size={11} aria-hidden="true" />
-              <LocalTime className="text-cream/70" />
-            </span>
-          </div>
+      {/* Dim the page and let a tap outside close the sheet. */}
+      <div
+        aria-hidden="true"
+        onClick={() => setOpen(false)}
+        className={`pointer-events-auto fixed inset-0 z-30 bg-[#050604]/65 backdrop-blur-[2px] transition-opacity duration-300 md:hidden ${
+          open ? 'opacity-100' : 'pointer-events-none opacity-0'
+        }`}
+      />
 
-          <ul className="mt-2 flex flex-col gap-0.5">
-            {navLinks.map((link, index) => {
-              const isActive = active === link.href
-              const Icon = navIcons[link.href] ?? User
+      <div
+        id="mobile-menu"
+        inert={!open}
+        aria-hidden={!open}
+        className={`fixed inset-x-3 top-[calc(env(safe-area-inset-top)+4.5rem)] z-40 flex max-h-[calc(100dvh-env(safe-area-inset-top)-env(safe-area-inset-bottom)-5.25rem)] flex-col overflow-y-auto overscroll-contain rounded-[22px] border border-cream/[0.1] bg-[#0b0d09]/95 p-4 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.95)] backdrop-blur-2xl transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
+          open
+            ? 'pointer-events-auto translate-y-0 opacity-100'
+            : 'pointer-events-none -translate-y-3 opacity-0'
+        }`}
+      >
+        <span
+          className="pointer-events-none absolute -top-16 left-1/2 h-36 w-64 -translate-x-1/2 rounded-full bg-accent/[0.14] blur-3xl"
+          aria-hidden="true"
+        />
 
-              return (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    onClick={collapse}
-                    className={`group flex items-center gap-3 rounded-xl px-3 py-3 transition-colors ${
+        <div className="relative flex items-center gap-2 border-b border-cream/[0.08] pb-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted/70">
+          <span className="flex items-center gap-1.5">
+            <Sparkles size={11} className="text-accent" aria-hidden="true" />
+            ruzz.ai
+          </span>
+          <span className="text-muted/25">/</span>
+          <span className="flex items-center gap-1.5">
+            <span className="size-1.5 rounded-full bg-mint" aria-hidden="true" />
+            online
+          </span>
+          <span className="ml-auto flex items-center gap-1.5">
+            <Clock3 size={11} aria-hidden="true" />
+            <LocalTime className="text-cream/70" />
+          </span>
+        </div>
+
+        <ul className="relative mt-3 flex flex-col gap-1">
+          {navLinks.map((link, index) => {
+            const isActive = active === link.href
+            const Icon = navIcons[link.href] ?? User
+
+            return (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  onClick={collapse}
+                  className={`group flex items-center gap-3 rounded-xl border px-3 py-3 transition-colors ${
+                    isActive
+                      ? 'border-accent/25 bg-accent/[0.09] text-cream'
+                      : 'border-transparent text-cream/80 hover:border-cream/[0.08] hover:bg-cream/[0.04] hover:text-cream'
+                  }`}
+                >
+                  <span
+                    className={`grid size-9 shrink-0 place-items-center rounded-[10px] border transition-colors ${
                       isActive
-                        ? 'bg-accent/[0.12] text-cream'
-                        : 'text-cream/80 hover:bg-cream/[0.05] hover:text-cream'
+                        ? 'border-accent/30 bg-accent/[0.12] text-accent'
+                        : 'border-cream/[0.08] bg-cream/[0.03] text-muted/70 group-hover:text-cream'
                     }`}
                   >
+                    <Icon size={15} aria-hidden="true" />
+                  </span>
+
+                  <span className="min-w-0">
+                    <span className="block font-display text-[17px] font-medium leading-tight">
+                      {link.label}
+                    </span>
+                    <span className="mt-0.5 block truncate text-[11px] text-muted/60">
+                      {navDescriptions[link.href]}
+                    </span>
+                  </span>
+
+                  <span className="ml-auto flex items-center gap-2">
                     <span
-                      className={`font-mono text-[10px] ${isActive ? 'text-accent' : 'text-muted/40'}`}
+                      className={`font-mono text-[9px] ${
+                        isActive ? 'text-accent/80' : 'text-muted/35'
+                      }`}
                     >
                       {String(index + 1).padStart(2, '0')}
                     </span>
-                    <Icon
-                      size={15}
-                      className={isActive ? 'text-accent' : 'text-muted/60'}
-                      aria-hidden="true"
-                    />
-                    <span className="font-display text-lg font-medium">{link.label}</span>
                     <ArrowUpRight
                       size={15}
-                      className="ml-auto text-muted/40 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                      className="text-muted/40 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
                       aria-hidden="true"
                     />
-                  </a>
-                </li>
-              )
-            })}
-          </ul>
+                  </span>
+                </a>
+              </li>
+            )
+          })}
+        </ul>
 
-          <a
-            href="#contact"
-            onClick={collapse}
-            className="btn-shine mt-4 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-accent px-4 font-mono text-[11px] uppercase tracking-[0.14em] text-[#14180a]"
-          >
-            start a conversation
-            <ArrowUpRight size={14} aria-hidden="true" />
-          </a>
+        <a
+          href="#contact"
+          onClick={collapse}
+          className="btn-shine relative mt-4 inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-accent px-4 text-[13px] font-semibold text-[#14180a] transition-colors hover:bg-accent-bright"
+        >
+          <Sparkles size={15} aria-hidden="true" />
+          Start a conversation
+          <ArrowUpRight size={15} aria-hidden="true" />
+        </a>
 
-          <div className="mt-4 rounded-xl border border-cream/[0.07] bg-cream/[0.02] p-4">
-            <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-accent">
-              currently
-            </p>
-            <p className="mt-1.5 flex items-center gap-2 text-[13px] font-medium text-cream">
-              <span className="relative flex size-1.5">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-mint opacity-60" />
-                <span className="relative inline-flex size-1.5 rounded-full bg-mint" />
-              </span>
-              Building {profile.currentlyBuilding}
-            </p>
-            <p className="mt-1 text-[11px] text-muted/70">{profile.availability}</p>
-          </div>
-
-          <div className="mt-auto flex items-center justify-between gap-4 border-t border-cream/[0.07] pt-4">
-            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted/60">
-              {profile.location}
+        <div className="mt-3 rounded-xl border border-cream/[0.07] bg-cream/[0.025] p-4">
+          <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-accent">
+            currently
+          </p>
+          <p className="mt-1.5 flex items-center gap-2 text-[13px] font-medium text-cream">
+            <span className="relative flex size-1.5">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-mint opacity-60" />
+              <span className="relative inline-flex size-1.5 rounded-full bg-mint" />
             </span>
-            <SocialLinks size={16} itemClassName="size-9" />
-          </div>
+            Building {profile.currentlyBuilding}
+          </p>
+          <p className="mt-1 text-[11px] text-muted/70">{profile.availability}</p>
         </div>
-      )}
+
+        <div className="mt-4 flex items-center justify-between gap-4 border-t border-cream/[0.07] pt-4">
+          <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted/60">
+            <MapPin size={11} aria-hidden="true" />
+            {profile.location}
+          </span>
+          <SocialLinks size={16} itemClassName="size-9" />
+        </div>
+      </div>
     </header>
   )
 }
