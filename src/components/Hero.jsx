@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef } from 'react'
 import { ArrowDown, ArrowUpRight, MapPin, Sparkles } from 'lucide-react'
 import { profile, stats } from '../data/portfolio'
 import CountUp from './CountUp'
@@ -6,7 +6,7 @@ import LocalTime from './LocalTime'
 import RotatingStamp from './RotatingStamp'
 import SocialLinks from './SocialLinks'
 
-function CodeCard({ tilt, onMouseMove, onMouseLeave }) {
+function CodeCard({ cardRef, onMouseMove, onMouseLeave }) {
   return (
     <div className="relative">
       <div
@@ -15,10 +15,9 @@ function CodeCard({ tilt, onMouseMove, onMouseLeave }) {
       />
 
       <div
-        className="relative rounded-[1.35rem] bg-gradient-to-br from-accent/60 via-cream/10 to-lilac/50 p-px shadow-[0_40px_100px_-40px_rgba(0,0,0,0.9)] transition-transform duration-300 ease-out will-change-transform"
-        style={{
-          transform: `perspective(1100px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-        }}
+        ref={cardRef}
+        className="relative rounded-[1.35rem] bg-gradient-to-br from-accent/60 via-cream/10 to-lilac/50 p-px shadow-[0_40px_100px_-40px_rgba(0,0,0,0.9)] transition-transform duration-200 ease-out will-change-transform"
+        style={{ transform: 'perspective(1100px) rotateX(0deg) rotateY(0deg)' }}
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
       >
@@ -115,17 +114,23 @@ function CodeCard({ tilt, onMouseMove, onMouseLeave }) {
 }
 
 export default function Hero() {
-  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const cardRef = useRef(null)
 
+  // Write the tilt straight to the node so moving the mouse never re-renders the page.
   const handleTilt = (event) => {
+    if (!cardRef.current) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const rect = event.currentTarget.getBoundingClientRect()
     const x = (event.clientX - rect.left) / rect.width - 0.5
     const y = (event.clientY - rect.top) / rect.height - 0.5
-    setTilt({ x: y * -6, y: x * 7 })
+    cardRef.current.style.transform = `perspective(1100px) rotateX(${y * -6}deg) rotateY(${x * 7}deg)`
   }
 
-  const resetTilt = () => setTilt({ x: 0, y: 0 })
+  const resetTilt = () => {
+    if (cardRef.current) {
+      cardRef.current.style.transform = 'perspective(1100px) rotateX(0deg) rotateY(0deg)'
+    }
+  }
 
   return (
     <section id="home" className="relative overflow-hidden pb-16 pt-28 sm:pb-20 sm:pt-36">
@@ -261,7 +266,7 @@ export default function Hero() {
         </div>
 
         <div className="hero-rise min-w-0 lg:pl-2" style={{ animationDelay: '220ms' }}>
-          <CodeCard tilt={tilt} onMouseMove={handleTilt} onMouseLeave={resetTilt} />
+          <CodeCard cardRef={cardRef} onMouseMove={handleTilt} onMouseLeave={resetTilt} />
         </div>
       </div>
 

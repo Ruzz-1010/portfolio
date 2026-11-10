@@ -18,6 +18,9 @@
   --color-butter: #e8e2cf;
   --color-lilac: #a8b3a0;
   --color-mint: #a6d9a8;
+
+  /* Shared soft ease-out for the header + sheet motion. */
+  --ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 @layer base {
@@ -461,7 +464,7 @@
   border-radius: 999px;
   pointer-events: none;
   background: radial-gradient(circle, rgb(203 246 95 / 0.06), transparent 62%);
-  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
 /* ---------- Subtle grain ---------- */

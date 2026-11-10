@@ -13,19 +13,39 @@ export default function CursorGlow() {
       return
     }
 
-    let frame = 0
+    // Follow the pointer with a short rAF lerp instead of restarting a CSS
+    // transition on every move event. That keeps the trailing glow fluid.
+    const state = { x: 0, y: 0, targetX: 0, targetY: 0, frame: 0, started: false }
+
+    const render = () => {
+      state.x += (state.targetX - state.x) * 0.16
+      state.y += (state.targetY - state.y) * 0.16
+      node.style.transform = `translate3d(${state.x}px, ${state.y}px, 0)`
+
+      if (Math.abs(state.targetX - state.x) > 0.35 || Math.abs(state.targetY - state.y) > 0.35) {
+        state.frame = requestAnimationFrame(render)
+      } else {
+        state.frame = 0
+      }
+    }
+
     const onPointerMove = (event) => {
-      if (frame) return
-      frame = requestAnimationFrame(() => {
-        node.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`
-        frame = 0
-      })
+      state.targetX = event.clientX
+      state.targetY = event.clientY
+
+      if (!state.started) {
+        state.started = true
+        state.x = state.targetX
+        state.y = state.targetY
+      }
+
+      if (!state.frame) state.frame = requestAnimationFrame(render)
     }
 
     window.addEventListener('pointermove', onPointerMove, { passive: true })
     return () => {
       window.removeEventListener('pointermove', onPointerMove)
-      if (frame) cancelAnimationFrame(frame)
+      if (state.frame) cancelAnimationFrame(state.frame)
     }
   }, [])
 

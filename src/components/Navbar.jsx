@@ -121,8 +121,12 @@ export default function Navbar() {
   }
 
   // Stay open on the first screen; shrink once the page starts scrolling.
+  // rAF keeps React from re-rendering on every scroll event.
   useEffect(() => {
-    const onScroll = () => {
+    let frame = 0
+
+    const sync = () => {
+      frame = 0
       const firstScreen = window.scrollY <= 80
       setAtTop(firstScreen)
 
@@ -133,8 +137,18 @@ export default function Navbar() {
         setExpanded(false)
       }
     }
+
+    const onScroll = () => {
+      if (frame) return
+      frame = window.requestAnimationFrame(sync)
+    }
+
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
   }, [])
 
   // Track which section is in view.
@@ -279,7 +293,7 @@ export default function Navbar() {
         {/* The pill is its own layer so expanding it never reflows the page. */}
         <div
           aria-hidden="true"
-          className={`pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 border [contain:layout_paint] transition-[width,background-color,border-color,border-radius] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          className={`pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 border [contain:layout_paint] transition-[width,background-color,border-color,border-radius] duration-[480ms] ease-soft ${
             expanded
               ? 'w-full rounded-2xl border-cream/[0.13] bg-[#0b0c0a]/97 shadow-[0_26px_70px_-32px_rgba(0,0,0,0.95)]'
               : 'w-[58px] rounded-[18px] border-transparent bg-[#0e110c]/80 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.75)]'
@@ -287,7 +301,7 @@ export default function Navbar() {
         />
 
         <div
-          className={`pointer-events-auto absolute top-0 z-10 transition-[left,transform] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          className={`pointer-events-auto absolute top-0 z-10 transition-[left,transform] duration-[480ms] ease-soft will-change-transform ${
             expanded ? 'left-2 translate-x-0' : 'left-1/2 -translate-x-1/2'
           }`}
         >
@@ -314,7 +328,7 @@ export default function Navbar() {
           id="header-content"
           inert={!expanded}
           aria-hidden={!expanded}
-          className={`relative z-[5] flex h-full min-w-0 items-center gap-1.5 pl-[60px] pr-2 transition-[opacity,transform] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          className={`relative z-[5] flex h-full min-w-0 items-center gap-1.5 pl-[60px] pr-2 transition-[opacity,transform] ease-soft ${
             expanded
               ? 'pointer-events-auto translate-x-0 opacity-100 delay-[130ms] duration-300'
               : 'pointer-events-none -translate-x-2 opacity-0 delay-0 duration-150'
@@ -438,7 +452,7 @@ export default function Navbar() {
         id="mobile-menu"
         inert={!open}
         aria-hidden={!open}
-        className={`fixed inset-x-3 top-[calc(env(safe-area-inset-top)+4.5rem)] z-40 flex max-h-[calc(100dvh-env(safe-area-inset-top)-env(safe-area-inset-bottom)-5.25rem)] flex-col overflow-y-auto overscroll-contain rounded-[22px] border border-cream/[0.1] bg-[#0b0d09]/95 p-4 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.95)] backdrop-blur-2xl transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
+        className={`fixed inset-x-3 top-[calc(env(safe-area-inset-top)+4.5rem)] z-40 flex max-h-[calc(100dvh-env(safe-area-inset-top)-env(safe-area-inset-bottom)-5.25rem)] flex-col overflow-y-auto overscroll-contain rounded-[22px] border border-cream/[0.1] bg-[#0b0d09]/95 p-4 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.95)] backdrop-blur-2xl transition-[opacity,transform] duration-300 ease-soft md:hidden ${
           open
             ? 'pointer-events-auto translate-y-0 opacity-100'
             : 'pointer-events-none -translate-y-3 opacity-0'
